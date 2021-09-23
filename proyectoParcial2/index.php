@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Empleados</title>
+    <title>Proyecto parcial2</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,38 +11,22 @@
 
   </head>
   <body>
-      <h1>Formulario Empleados</h1>
-       <div class="container">
-          <form class="d-flex" action="crud_empleado.php" method="post">
+      <h1>Formulario Productos</h1>
+      <div class="container">
+          <form class="d-flex" action="crud_producto.php" method="post">
             <div class="col">
-              <div class="mb-3">
+            <div class="mb-3">
                 <label for="lbl_id" class="form-label"><b>ID</b></label>
-                <input type="text" name="txt_id" id="txt_id" class="form-control" value="0" readonly>
+                <input type="text" name="txt_id" id="txt_id" class="form-control" value="0"  readonly>
               </div>
               <div class="mb-3">
-                <label for="lbl_codigo" class="form-label"><b>Codigo</b></label>
-                <input type="text" name="txt_codigo" id="txt_codigo" class="form-control" placeholder="Codigo: E001" required>
+                <label for="lbl_producto" class="form-label"><b>Producto</b></label>
+                <input type="text" name="txt_producto" id="txt_producto" class="form-control" placeholder="Producto: P001" required>
               </div>
               <div class="mb-3">
-                <label for="lbl_nombres" class="form-label"><b>Nombres</b></label>
-                <input type="text" name="txt_nombres" id="txt_nombres" class="form-control" placeholder="Nombres: Nombre1 Nombre2" required>
-              </div>
-              <div class="mb-3">
-                <label for="lbl_apellidos" class="form-label"><b>Apellidos</b></label>
-                <input type="text" name="txt_apellidos" id="txt_apellidos" class="form-control" placeholder="Apellidos: Apellido1 Apellido2" required> 
-              </div>
-              <div class="mb-3">
-                <label for="lbl_direccion" class="form-label"><b>Direccion</b></label>
-                <input type="text" name="txt_direccion" id="txt_direccion" class="form-control" placeholder="Direccion: #casa calle avenida lugar" required>
-              </div>
-              <div class="mb-3">
-                <label for="lbl_telefono" class="form-label"><b>Telefono</b></label>
-                <input type="number" name="txt_telefono" id="txt_telefono" class="form-control" placeholder="Telefono: 56688621" required>
-              </div>
-              <div class="mb-3">
-                <label for="lbl_puesto" class="form-label"><br>Puesto</br></label>
-                <select class="form-select" name="drop_puesto" id="drop_puesto">
-                  <option value=0> ---- Puesto ---- </option>
+                <label for="lbl_marca" class="form-label"><b>Marca<b></label>
+                <select class="form-select" name="drop_marca" id="drop_marca">
+                  <option value=0>--- Marca ---</option>
                   <?php 
                    include("datos_conexion.php");
                    $db_conexion = mysqli_connect($db_host,$db_usr,$db_pass,$db_nombre);
@@ -50,85 +34,108 @@
                   $resultado = $db_conexion -> use_result();
                   while ($fila = $resultado ->fetch_assoc()){
                     echo "<option value=". $fila['id'].">". $fila['marca']."</option>";
+
                   }
                   $db_conexion ->close();
+
                   ?>
                 </select>
               </div>
               <div class="mb-3">
-                <label for="lbl_fn" class="form-label"><b>Fecha Nacimiento</b></label>
-                <input type="date" name="txt_fn" id="txt_fn" class="form-control" placeholder="aaaa-mm-dd" required>
+                <label for="lbl_descripcion" class="form-label"><b>Descripcion</b></label>
+                <input type="text" name="txt_descripcion" id="txt_descripcion" class="form-control" placeholder="Descripcion: Detalle Producto" required>
               </div>
               <div class="mb-3">
-                <input type="submit" name="btn_agregar" id="btn_agregar" class="btn btn-primary " value = "Agregar">
-                <input type="submit" name="btn_modificar" id="btn_modificar" class="btn btn-success " value = "Modificar">
-                <input type="submit" name="btn_eliminar" id="btn_eliminar" class="btn btn-danger" onclick="javascript:if(!confirm('¿Desea Eliminar?'))return false" value = "Eliminar">
+                <label for="lbl_precio_costo" class="form-label"><b>Precio_costo</b></label>
+                <input type="number" name="txt_precio_costo" id="txt_precio_costo" class="form-control" placeholder="Precio_costo: Ingrese valor" required>
               </div>
-             
-            </div>
+              <div class="mb-3">
+                <label for="lbl_precio_venta" class="form-label"><b>Precio_venta</b></label>
+                <input type="number" name="txt_precio_venta" id="txt_precio_venta" class="form-control" placeholder="Precio_venta: Ingrese valor" required>
+              </div>
+              <div class="mb-3">
+                <label for="lbl_existencia" class="form-label"><b>Existencia</b></label>
+                <input type="number" name="txt_existencia" id="txt_existencia" class="form-control" placeholder="Existencia: Ingrese Numero" required>
+              </div>
+              <div class="mb-3">
+                <input type="submit" name="btn_agregar" id="btn_agregar" class="btn btn-primary" value = "Agregar">
+                <input type="submit" name="btn_modificar" id="btn_modificar" class="btn btn-success" value = "Modificar">
+                <input type="submit" name="btn_eliminar" id="btn_eliminar" class="btn btn-danger" onclick="javascript:if(!confirm('¿Desea Eliminar?'))return false" value = "Eliminar">
+                <input type="submit" name="btn_nuevo" id="btn_nuevo" class="btn btn-danger" onclick="limpiar()" value = "Nuevo">
+              </div>
           </form>
-              <table class="table table-striped table-inverse table-responsive">
-                <thead class="thead-inverse">
-                  <tr>
-                    <th>Codigo</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Direccion</th>
-                    <th>Telefono</th>
-                    <th>Puesto</th>
-                    <th>Nacimiento</th>
-                  </tr>
-                  </thead>
-                  <tbody id="tbl_empleados">
-                  <?php 
+          <table class="table table-striped table-inverse table-responsive">
+            <thead class="thead-inverse">
+              <tr>
+                <th>Producto</th>
+                <th>Marca</th>
+                <th>Descripcion</th>
+                <th>Precio_costo</th>
+                <th>Precio_venta</th>
+                <th>Existencia</th>
+              </tr>
+              </thead>
+              <tbody id="tbl_productos" >
+              <?php 
                    include("datos_conexion.php");
                    $db_conexion = mysqli_connect($db_host,$db_usr,$db_pass,$db_nombre);
-                   $db_conexion -> real_query ("SELECT e.id_empleado as id,e.codigo,e.nombres,e.apellidos,e.direccion,e.telefono,p.puesto,e.fecha_nacimiento,e.id_puesto FROM empleados as e inner join puestos as p on e.id_puesto = p.id_puesto;");
+                   $db_conexion -> real_query ("SELECT p.id_producto as id,p.producto,m.marca,p.descripcion,p.precio_costo,p.precio_venta,p.existencia,p.id_marca
+                   from productos as p inner join marcas as m on p.id_marca = m.id_marca;");
                   $resultado = $db_conexion -> use_result();
                   while ($fila = $resultado ->fetch_assoc()){
-                    echo"<tr data-id=". $fila['id']." data-idp=". $fila['id_puesto'].">";
-                    echo"<td>". $fila['codigo'] ."</td>";
-                    echo"<td>". $fila['nombres'] ."</td>";
-                    echo"<td>". $fila['apellidos'] ."</td>";
-                    echo"<td>". $fila['direccion'] ."</td>";
-                    echo"<td>". $fila['telefono'] ."</td>";
-                    echo"<td>". $fila['puesto'] ."</td>";
-                    echo"<td>". $fila['fecha_nacimiento'] ."</td>";
-                    echo"<tr>";
+                    echo"<tr data-id=". $fila['id'] ." data-idm=". $fila['id_marca'] .">";
+                    echo "<td>". $fila['producto']."</td>";
+                    echo "<td>". $fila['marca']."</td>";
+                    echo "<td>". $fila['descripcion']."</td>";
+                    echo "<td>". $fila['precio_costo']."</td>";
+                    echo "<td>". $fila['precio_venta']."</td>";
+                    echo "<td>". $fila['existencia']."</td>";
+                    echo "</tr>";
+
                   }
                   $db_conexion ->close();
                   ?>
-                  
-                  </tbody>
-              </table>
-              </div>
- 
-    <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+              </tbody>
+          </table>
+          
+      </div>
+     
+   <!-- Bootstrap JavaScript Libraries -->
+   <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-  <script>
-    $("#tbl_empleados").on('click','tr td',function (e){
-      var target,id,idp,codigo,nombres,apellidos,direccion,telefono,nacimiento;
-      target= $(event.target);
-      id = target.parent().data('id');
-      idp = target.parent().data('idp');
-      codigo = target.parent('tr').find("td").eq(0).html();
-      nombres = target.parent('tr').find("td").eq(1).html();
-      apellidos = target.parent('tr').find("td").eq(2).html();
-      direccion = target.parent('tr').find("td").eq(3).html();
-      telefono = target.parent('tr').find("td").eq(4).html();
-      nacimiento = target.parent('tr').find("td").eq(6).html();
-      $("#txt_id").val(id);
-      $("#txt_codigo").val(codigo);
-      $("#txt_nombres").val(nombres);
-      $("#txt_apellidos").val(apellidos);
-      $("#txt_direccion").val(direccion);
-      $("#txt_telefono").val(telefono);
-      $("#txt_fn").val(nacimiento);
-      $("#drop_puesto").val(idp);
-
+  <script type="text/javascript">
+    function limpiar(){
+        $("#txt_id").val(0);
+        $("#drop_puesto").val(1);
+        $("#txt_producto").val('');
+        $("#txt_descripcion").val('');
+        $("#txt_precio_costo").val('');
+        $("#txt_precio_venta").val('');
+        $("#txt_existencia").val('');
+        
+        
+    }
+    $('#tbl_productos').on('click','tr td',function(p){
+        var target,id,idm,producto,descripcion,precio_costo,precio_venta,existencia;
+        target = $(event.target);
+        id = target.parent().data('id');
+        idm = target.parent().data('idm');
+        producto = target.parent("tr").find("td").eq(0).html();
+        descripcion = target.parent("tr").find("td").eq(2).html();
+        precio_costo =  target.parent("tr").find("td").eq(3).html();
+        precio_venta = target.parent("tr").find("td").eq(4).html();
+        existencia = target.parent("tr").find("td").eq(5).html();
+        $("#txt_id").val(id);
+        $("#txt_producto").val(producto);
+        $("#txt_descripcion").val(descripcion);
+        $("#txt_precio_costo").val(precio_costo);
+        $("#txt_precio_venta").val(precio_venta);
+        $("#txt_existencia").val(existencia);
+        $("#drop_marca").val(idm);
+        
     });
   </script>
+
   </body>
 </html>
